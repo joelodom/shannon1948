@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shannon1948", "shannon1948.vcxproj", "{1802BDAC-11EF-4984-961D-F57836C3A394}"
+EndProject
+Global
+	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
+		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1802BDAC-11EF-4984-961D-F57836C3A394}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1802BDAC-11EF-4984-961D-F57836C3A394}.Debug|Win32.Build.0 = Debug|Win32
+		{1802BDAC-11EF-4984-961D-F57836C3A394}.Release|Win32.ActiveCfg = Release|Win32
+		{1802BDAC-11EF-4984-961D-F57836C3A394}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
