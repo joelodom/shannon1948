@@ -19,19 +19,19 @@
 #include "shannon1948.hpp"
 #include "gtest/gtest.h"
 #include <cstdlib>
+#include <map>
 
-/* static */ int shannon1948::EntropySource::s_memory_allocations_ = 0;
-/* static */ int shannon1948::EntropySource::s_memory_deallocations_ = 0;
+using namespace shannon1948;
 
-/* static */ shannon1948::MESSAGE
-   shannon1948::EntropySource::GenerateBinaryMessage(double p, int length)
+/* static */ void EntropySource::GenerateBinaryMessage(
+   double p, size_t length, std::string& message)
 {
-   // allocate the message
-   MESSAGE message = new SYMBOL[length];
-   ++s_memory_allocations_;
+   if (length == 0)
+      throw std::exception("length must be greater than zero");
 
-   // populate the message
-   for (int i = 0; i < length; i++)
+   message.reserve(length);
+
+   for (size_t i = 0; i < length; i++)
    {
       // TODO: Switch to a better random number generator / experiment with
       // different generators.  Any experiment here is highly dependent on
@@ -41,10 +41,27 @@
       int r = rand(); // 0 to RAND_MAX, inclusive of both endpoints
       while (r == RAND_MAX) // don't allow RAND_MAX
          r = rand();
-      message[i] = rand() < p*RAND_MAX ? 'A' : 'B';
+      message.push_back(r < p*RAND_MAX ? 'A' : 'B');
    }
+}
 
-   return message;
+/* static */ double EntropyCalculator::G_N(std::string message, size_t N)
+{
+   size_t message_length = message.length();
+
+   if (N == 0)
+      throw std::exception("N must be greater than zero");
+   if (N > message_length)
+      throw std::exception("N must be less than or equal to message length");
+
+   // count all sequences of length N
+
+   std::map<std::string, size_t> sequence_counts;
+
+   for (size_t i = 0; i + N <= message_length; i++)
+      ++sequence_counts[message.substr(i, N)];
+
+#error under construction...   
 }
 
 int main(int argc, char **argv) {
