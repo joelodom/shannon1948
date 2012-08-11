@@ -46,7 +46,8 @@ namespace shannon1948
       // G_N uses the simpler, but less precise formula to calculate entropy.
       // G_N = -(1/N)*sum(p(B_i)*log2(p(B_i))), where the sum is over all
       // sequences B_i containing N symbols.  As N grows, the limit approaches
-      // the entropy, H.
+      // the entropy, H.  symbols is the number of symbols possible in the
+      // string.
       static double G_N(std::string message, size_t N);
    };
 }

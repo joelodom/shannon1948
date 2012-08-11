@@ -18,8 +18,10 @@
 
 #include "shannon1948.hpp"
 #include "gtest/gtest.h"
+
 #include <cstdlib>
 #include <map>
+#include <cmath>
 
 using namespace shannon1948;
 
@@ -57,11 +59,24 @@ using namespace shannon1948;
    // count all sequences of length N
 
    std::map<std::string, size_t> sequence_counts;
+   size_t samples = 0; // the final number of samples taken from the message
 
-   for (size_t i = 0; i + N <= message_length; i++)
-      ++sequence_counts[message.substr(i, N)];
+   while (samples + N <= message_length)
+      ++sequence_counts[message.substr(samples++, N)];
 
-#error under construction...   
+   // The probability of a sequence, p(B_i), is determined by its number of
+   // occurences in the message as a fraction of the total number of samples
+   // taken from the message.  This calculation assumes that "impossible"
+   // sequences (those not found in this message) do not contribute to the sum.
+
+   double sum = 0.0;
+   for (auto it = sequence_counts.begin(); it != sequence_counts.end(); it++)
+   {
+      double p = double(it->second)/samples;
+      sum -= p*log(p); // natural log and use - operator
+   }
+
+   return sum/N/log(2.0); // convert to log2 for binary entropy
 }
 
 int main(int argc, char **argv) {

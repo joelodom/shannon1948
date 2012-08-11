@@ -67,7 +67,7 @@ TEST(entropy_source_tests, test_p_half)
    }
 
    EXPECT_TRUE(found_a && found_b) << "If all works as expected, "
-      "the probability of this test failing is negligible";
+      "the probability of this test failing is negligible.";
 }
 
 TEST(entropy_source_tests, test_p_tenth)
@@ -89,7 +89,7 @@ TEST(entropy_source_tests, test_p_tenth)
    }
 
    EXPECT_TRUE(b_count > a_count) << "If all works as expected, "
-      "the probability of this test failing is negligible";
+      "the probability of this test failing is negligible.";
 }
 
 TEST(entropy_calculator_tests, test_zero_entropy_message)
@@ -100,4 +100,37 @@ TEST(entropy_calculator_tests, test_zero_entropy_message)
    EntropySource::GenerateBinaryMessage(0.0, LENGTH, message);
    double entropy = EntropyCalculator::G_N(message, 4);
    EXPECT_TRUE(entropy == 0.0) << "Expected no entropy.";
+}
+
+TEST(entropy_calculator_tests, test_max_entropy_message_1)
+{
+   // p = 0.5 means that messages should contain As and Bs
+   const int LENGTH = 1024;
+   std::string message;
+   EntropySource::GenerateBinaryMessage(0.5, LENGTH, message);
+   double entropy = EntropyCalculator::G_N(message, 1);
+   EXPECT_NEAR(entropy, 1.0, 0.05) << "If all works as expected, "
+      "the probability of this test failing is small.";
+}
+
+TEST(entropy_calculator_tests, test_max_entropy_message_8)
+{
+   // p = 0.5 means that messages should contain As and Bs
+   const int LENGTH = 8192;
+   std::string message;
+   EntropySource::GenerateBinaryMessage(0.5, LENGTH, message);
+   double entropy = EntropyCalculator::G_N(message, 8);
+   EXPECT_NEAR(entropy, 1.0, 0.1) << "If all works as expected, "
+      "the probability of this test failing is small.";
+}
+
+TEST(entropy_calculator_tests, test_max_entropy_message_16)
+{
+   // p = 0.5 means that messages should contain As and Bs
+   const int LENGTH = 1024*1024; // 1 MB
+   std::string message;
+   EntropySource::GenerateBinaryMessage(0.5, LENGTH, message);
+   double entropy = EntropyCalculator::G_N(message, 16);
+   EXPECT_NEAR(entropy, 1.0, 0.1) << "If all works as expected, "
+      "the probability of this test failing is small.";
 }
