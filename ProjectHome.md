@@ -1,0 +1,1 @@
+This is a suite of algorithms and experiments that explore Claude Shannon's landmark 1948 paper, _A Mathematical Theory of Communication_.  The project is written in C++.  The experiments are carried out using Google Test.
